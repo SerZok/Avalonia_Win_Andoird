@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="AvaloniaApp.Views.MainView"
+             x:DataType="vm:MainViewModel"
+			 >
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+	
+	<Grid Background="#666" RowDefinitions="Auto,*,Auto">
+		<!--TOP panel-->
+		<Border BorderBrush="Black" Grid.Row="0" BorderThickness="1">
+		<Grid  Grid.Row="0" Background="#777" ColumnDefinitions="Auto,*,Auto" Height="40">
+			<Rectangle Grid.Column="0" Fill="Aquamarine" Width="40"> </Rectangle>
+			<StackPanel  Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<Label Content="Погода" FontWeight="Black"/>
+				<Label Content="ТЕСТ"/>
+			</StackPanel>
+			<Rectangle Grid.Column="2" Fill="Blue" Width="40"> </Rectangle>
+		</Grid>
+		</Border>
+		
+		<!--Main Panel-->
+		<Border BorderBrush="Black" Grid.Row="1" BorderThickness="1">
+		<Grid Grid.Row="1" Background="#888" HorizontalAlignment="Center">
+			<DataGrid ItemsSource="{Binding WDatas}">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Country" Binding="{Binding Location.Name}"/>
+					<DataGridTextColumn Header="Region" Binding="{Binding Location.Region}"/>
+				</DataGrid.Columns>
+			</DataGrid>
+			
+		</Grid>
+		</Border>
+
+		<!--Bottom Panel-->
+		<Border BorderBrush="Black" Grid.Row="2" BorderThickness="1">
+			<Grid Grid.Row="2" Background="#898989">
+				<Label Content="Test"/>
+			</Grid>
+		</Border>
+		
+	</Grid>
+
+	<!--<StackPanel Margin="20" HorizontalAlignment="Center">
+		<TextBox Watermark="Enter location" Text="{Binding Location}" Margin="0,0,0,10"/>
+		<Button Content="Fetch Weather" Command="{Binding FetchWeatherCommand}" Margin="0,0,0,10" />
+
+		<TextBlock Text="{Binding WeatherData.Location.Name}" FontWeight="Bold" FontSize="18" Margin="0,10,0,5"/>
+		<TextBlock Text="{Binding WeatherData.Location.Region}" Margin="0,0,0,5"/>
+		<TextBlock Text="{Binding WeatherData.Location.Country}" Margin="0,0,0,15"/>
+
+		<TextBlock Text="Current Temperature:" FontWeight="Bold"/>
+		<TextBlock Text="{Binding WeatherData.Current.Temp_C, StringFormat='{}{0} °C'}" FontSize="16"/>
+		<TextBlock Text="{Binding WeatherData.Current.Temp_F, StringFormat='{}{0} °F'}" FontSize="16"/>
+
+		<TextBlock Text="Condition:" FontWeight="Bold"/>
+		<TextBlock Text="{Binding WeatherData.Current.condition.text}"/>
+	</StackPanel>-->
+</UserControl>
