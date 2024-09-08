@@ -15,13 +15,12 @@ namespace AvaloniaApp.Models
 {
     public class WeatherService
     {
-        private readonly string ApiKey = "xxx"; //Свой API ключ
+        private readonly string ApiKey = "xxx";
         private const string BaseUrl = "http://api.weatherapi.com/v1";
         private readonly HttpClient _httpClient;
 
         public WeatherService()
         {
-            System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             _httpClient = new HttpClient();
         }
         public async Task<WeatherResponse> GetCurrentWeatherAsync(string location)
@@ -58,6 +57,7 @@ namespace AvaloniaApp.Models
         public string Name { get; set; }
         public string Region { get; set; }
         public string Country { get; set; }
+        public string Localtime { get; set; }
     }
 
     public class Current

@@ -15,36 +15,59 @@
   </Design.DataContext>
 	
 	<Grid Background="#666" RowDefinitions="Auto,*,Auto">
-		<!--TOP panel-->
-			
-		<Grid  Grid.Row="0" Background="#777" ColumnDefinitions="Auto,*,Auto" Height="40">
 		<Grid.Styles>
+			<Style Selector="Label">
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
 			<Style Selector="Button">
 				<Setter Property="Background" Value="Transparent"></Setter>
 			</Style>
 		</Grid.Styles>
+		
+		<!--TOP panel-->
+		<Grid  Grid.Row="0" Background="#777" ColumnDefinitions="Auto,*,Auto" Height="40">
 			
 			<Button Width="35" Padding="1">
 				<Image Source="{SvgImage /Assets/Plus.svg}"/>
 			</Button>
-			<StackPanel  Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-				<Label Content="Погода" FontWeight="Black"/>
-				<Label Content="ТЕСТ"/>
-			</StackPanel>
+			
+			<Label FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Content="{Binding WeatherData.Location.Name}"/>
+			
 			<Button Grid.Column="2" Width="35" Padding="1">
 				<Image Source="{SvgImage /Assets/Settings.svg}"/>
 			</Button>
 		</Grid>
 		
 		<!--Main Panel-->
-		<Grid Grid.Row="1" Background="#888">
-			<DataGrid ItemsSource="{Binding WDatas}" IsReadOnly="True">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="Страна" Binding="{Binding Location.Name}"/>
-					<DataGridTextColumn Header="Регион" Binding="{Binding Location.Region}"/>
-					<DataGridTextColumn Header="Температура C" Binding="{Binding Current.Temp_C}"/>
-				</DataGrid.Columns>
-			</DataGrid>
+		<Grid Grid.Row="1" Background="#212548" RowDefinitions="Auto, Auto, Auto, Auto , Auto, *, *">
+
+			<!--
+			1.Icon
+			2.Temp
+			3.Ясно/Облачно
+			4.Время
+			5.Дата
+			6.Grid (4x4)
+			-->
+			<Image Grid.Row="0" Source="/Assets/avalonia-logo.ico" Height="60" Margin="0,15"/>
+			<Label Grid.Row="1" Content="{Binding WeatherData.Current.Temp_C,StringFormat= {}{0}°C}" HorizontalAlignment="Center" FontSize="35" FontWeight="Bold"/>
+			<Label Grid.Row="2"  Content="{Binding WeatherData.Current.condition.text}" HorizontalAlignment="Center"/> 
+			<!--Надо как то разделить время и дату-->
+			<Label Grid.Row="3" Foreground="#999DBA" Content="{Binding WeatherData.Location.Localtime, StringFormat={}{0:hh:mm}}" HorizontalAlignment="Center"/>
+			<Label Grid.Row="4" Foreground="#999DBA" Content="{Binding WeatherData.Location.Localtime, StringFormat=\{0:d\}}" HorizontalAlignment="Center"/>
+
+			<Grid Grid.Row="5" ColumnDefinitions="*,*" RowDefinitions="*,*" Margin="5">
+					<TextBlock Grid.Row="0" Grid.Column="0" Text="A"/>
+					<TextBlock Grid.Row="0" Grid.Column="1" Text="B"/>
+					<TextBlock Grid.Row="1" Grid.Column="0" Text="C"/>
+					<TextBlock Grid.Row="1" Grid.Column="1" Text="D"/>
+			</Grid>
+			
+			
+			<Grid Grid.Row="6" Background="#232323">
+				
+			</Grid>
+			
 		</Grid>
 
 		<!--Bottom Panel-->

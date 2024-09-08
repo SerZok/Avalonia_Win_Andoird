@@ -26,6 +26,8 @@ public class MainViewModel : ViewModelBase
 
     private async void  InitWeatherData()
     {
+        WeatherData = await _weatherService.GetCurrentWeatherAsync("Чебоксары");
+
         var locations = new List<string> { "New York", "Москва", "Kazan" };
 
         foreach (var loc in locations)
