@@ -7,25 +7,22 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net;
+
+
 
 namespace AvaloniaApp.Models
 {
     public class WeatherService
     {
-        private readonly string ApiKey;
+        private readonly string ApiKey = "xxx"; //Свой API ключ
         private const string BaseUrl = "http://api.weatherapi.com/v1";
         private readonly HttpClient _httpClient;
 
         public WeatherService()
         {
+            System.Net.ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             _httpClient = new HttpClient();
-            try { 
-                ApiKey = File.ReadAllText("..//..//..//..//key.txt");
-            }
-            catch(Exception ex) {
-                Debug.WriteLine(ex);
-            }
-
         }
         public async Task<WeatherResponse> GetCurrentWeatherAsync(string location)
         {

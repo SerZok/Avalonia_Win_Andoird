@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaApp.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+			  
              x:Class="AvaloniaApp.Views.MainView"
              x:DataType="vm:MainViewModel"
 			 >
@@ -15,36 +16,41 @@
 	
 	<Grid Background="#666" RowDefinitions="Auto,*,Auto">
 		<!--TOP panel-->
-		<Border BorderBrush="Black" Grid.Row="0" BorderThickness="1">
+			
 		<Grid  Grid.Row="0" Background="#777" ColumnDefinitions="Auto,*,Auto" Height="40">
-			<Rectangle Grid.Column="0" Fill="Aquamarine" Width="40"> </Rectangle>
+		<Grid.Styles>
+			<Style Selector="Button">
+				<Setter Property="Background" Value="Transparent"></Setter>
+			</Style>
+		</Grid.Styles>
+			
+			<Button Width="35" Padding="1">
+				<Image Source="{SvgImage /Assets/Plus.svg}"/>
+			</Button>
 			<StackPanel  Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
 				<Label Content="Погода" FontWeight="Black"/>
 				<Label Content="ТЕСТ"/>
 			</StackPanel>
-			<Rectangle Grid.Column="2" Fill="Blue" Width="40"> </Rectangle>
+			<Button Grid.Column="2" Width="35" Padding="1">
+				<Image Source="{SvgImage /Assets/Settings.svg}"/>
+			</Button>
 		</Grid>
-		</Border>
 		
 		<!--Main Panel-->
-		<Border BorderBrush="Black" Grid.Row="1" BorderThickness="1">
-		<Grid Grid.Row="1" Background="#888" HorizontalAlignment="Center">
-			<DataGrid ItemsSource="{Binding WDatas}">
+		<Grid Grid.Row="1" Background="#888">
+			<DataGrid ItemsSource="{Binding WDatas}" IsReadOnly="True">
 				<DataGrid.Columns>
-					<DataGridTextColumn Header="Country" Binding="{Binding Location.Name}"/>
-					<DataGridTextColumn Header="Region" Binding="{Binding Location.Region}"/>
+					<DataGridTextColumn Header="Страна" Binding="{Binding Location.Name}"/>
+					<DataGridTextColumn Header="Регион" Binding="{Binding Location.Region}"/>
+					<DataGridTextColumn Header="Температура C" Binding="{Binding Current.Temp_C}"/>
 				</DataGrid.Columns>
 			</DataGrid>
-			
 		</Grid>
-		</Border>
 
 		<!--Bottom Panel-->
-		<Border BorderBrush="Black" Grid.Row="2" BorderThickness="1">
-			<Grid Grid.Row="2" Background="#898989">
-				<Label Content="Test"/>
-			</Grid>
-		</Border>
+		<Grid Grid.Row="2" Background="#898989">
+			<Label Content="Test"/>
+		</Grid>
 		
 	</Grid>
 
